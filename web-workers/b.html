@@ -1,0 +1,29 @@
+<html>
+<head>
+</head>
+<body>
+    <div>web-workers</div>
+    <script>
+      var worker = new Worker('./calc.js');
+      window.onload = function () {
+        // 给子进程传递数据
+        worker.postMessage({
+          name: 'workers',
+          use: 'calc',
+          count: 8
+        });
+      };
+      // 获取子进程处理的结果
+      worker.onmessage = function (e) {
+        const result = e.data;
+        console.log(result);
+      }
+
+      // worker.terminate();
+
+
+      // 多个子进程
+      var workder2 = new Worker('./calc2.js');
+    </script>
+</body>
+</html>
