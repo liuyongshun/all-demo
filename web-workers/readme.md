@@ -31,3 +31,7 @@ worker.onmessage = function (e) {
 console.log(e, '同页面的worker')
 };
 ```
+### ServiceWorkers
+
+ServiceWorkers 作为web应用程序、浏览器和网络（如果可用）之前的代理服务器。旨在创建有效的离线体验，拦截网络请求，以及根据网络是否可用采取合适的行动并更新驻留在服务器上的资源。他们还将允许访问推送通知和后台同步API。
+
