@@ -1,0 +1,28 @@
+<html>
+<head>
+</head>
+<body>
+    <div>web-workers</div>
+    <input id="number3"/>
+    <input id="result"/>
+    <script>
+    </script>
+    <script>
+    var justNum = document.querySelector('#number3');
+    var result2 = document.querySelector('#result');
+
+    if (!!window.SharedWorker) {
+      var myWorker = new SharedWorker("./common.js");
+
+      justNum.onchange = function() {
+        myWorker.port.postMessage([justNum.value, justNum.value]);
+      }
+
+      myWorker.port.onmessage = function(e) {
+        result.value = e.data;
+      }
+    }
+
+    </script>
+</body>
+</html>

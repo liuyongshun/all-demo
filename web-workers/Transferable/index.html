@@ -1,0 +1,14 @@
+<html>
+<head>
+</head>
+<body>
+    <div>web-workers</div>
+    <script>
+      var uInt8Array = new Uint8Array(1024*1024*200); // 200MB
+      for (var i = 0; i < uInt8Array .length; ++i) {
+        uInt8Array[i] = i;
+      }
+      worker.postMessage(uInt8Array.buffer, [uInt8Array.buffer]);
+    </script>
+</body>
+</html>
