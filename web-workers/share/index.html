@@ -1,0 +1,37 @@
+<html>
+<head>
+</head>
+<body>
+    <div>web-workers</div>
+    <input id="number1"/>
+    <input id="result"/>
+    <a href="./index2.html">去页面2</a>
+    <script>
+      // 一个共享worker可以被多个脚本使用——即使这些脚本正在被不同的window、iframe或者worker访问
+      // 共享worker通信必须通过端口对象——一个确切的打开的端口供脚本与worker通信
+      // 在传递消息之前，端口连接必须被显式的打开，打开方式是使用onmessage事件处理函数或者start()方法
+      // 如果共享worker可以被多个浏览上下文调用，所有这些浏览上下文必须属于同源（相同的协议，主机和端口号）
+      // start()方法的调用只在一种情况下需要，那就是消息事件被addEventListener()方法使用。
+      // 在使用start()方法打开端口连接时，如果父级线程和worker线程需要双向通信，那么它们都需要调用start()方法。
+      // 当一个端口连接被创建时（例如：在父级线程中，设置onmessage事件处理函数，或者显式调用start()方法时），使用onconnect事件处理函数来执行代码
+      // var worker = new SharedWorker('./index.js');
+    </script>
+    <script>
+    var first = document.querySelector('#number1');
+    var result1 = document.querySelector('#result');
+
+    if (!!window.SharedWorker) {
+      var myWorker = new SharedWorker("./common.js");
+
+      first.onchange = function() {
+        myWorker.port.postMessage([first.value, first.value]);
+      }
+
+      myWorker.port.onmessage = function(e) {
+        result1.value = e.data;
+      }
+    }
+
+    </script>
+</body>
+</html>
