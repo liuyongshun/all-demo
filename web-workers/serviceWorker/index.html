@@ -1,0 +1,24 @@
+<html>
+<head>
+</head>
+<body>
+    <div>A 页面</div>
+    <button onclick="toB()">B 页面</button>
+    <script>
+      // document.addEventListener('beforeunload', function () {
+
+      // })
+      window.onbeforeunload = function () {
+        return '333'
+      }
+      window.name = 'A' // 设置页面名
+      function toB() {
+          window.open("other.html", "other") // 打开新页面并设置页面名
+      }
+      window.addEventListener('hashchange', function () {// 监听 hash
+          alert(window.location.hash)
+      }, false);
+    </script>
+</body>
+</html>
+

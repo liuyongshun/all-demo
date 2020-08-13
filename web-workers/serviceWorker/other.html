@@ -1,0 +1,46 @@
+<html>
+<head>
+</head>
+<body>
+    <div>这是 B crash 页面</div>
+    <button onclick='handleCrash()'>点击我使页面崩溃</button>
+    <script>
+        function handleCrash(){
+            var total="";
+            for (var i=0;i<1000000;i++) {
+                var dom = document.createElement('span');
+                dom.innerHTML="崩溃";
+                document.getElementsByTagName("body")[0].appendChild(dom)
+            }
+        }
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js', {
+                scope: './'
+            }).then(function (registration) {
+                if (navigator.serviceWorker.controller !== null) {
+                    let HEARTBEAT_INTERVAL = 5 * 1000; // 每五秒发一次心跳
+                    let sessionId = "uuid()";
+                    let heartbeat = function () {
+                        console.log("页面发送 state:running") // running
+                        navigator.serviceWorker.controller.postMessage({
+                            type: 'running',
+                            id: sessionId,
+                            data: {} // 附加信息，如果页面 crash，上报的附加数据
+                        });
+                    }
+                    window.addEventListener("beforeunload", function () {
+                        console.log("页面发送 state:clear") // clear
+                        navigator.serviceWorker.controller.postMessage({
+                            type: 'clear',
+                            id: sessionId
+                        });
+                    });
+                    setInterval(heartbeat, HEARTBEAT_INTERVAL);
+                    heartbeat();
+                }
+            }).catch(function (error) {
+            });
+        }
+    </script>
+</body>
+</html>
