@@ -5,6 +5,7 @@
     <div>web-workers</div>
     <input id="number3"/>
     <input id="result"/>
+    <div onclick="crash">崩溃一下</div>
     <script>
     </script>
     <script>
@@ -23,6 +24,26 @@
       }
     }
 
+
+    // 崩溃页面心跳 ================
+    // function crash() {
+    //   while (true) {}
+    // }
+    // if (!!window.SharedWorker) {
+    //   var myWorker = new SharedWorker("./common.js");
+    //   setInterval(function () {
+    //     console.log('心跳频率');
+    //     myWorker.port.postMessage({
+    //       from: 'b',
+    //       type: 'running',
+    //       data: {}
+    //     });
+    //   }, 5000);
+
+    //   myWorker.port.onmessage = function(e) {
+    //     console.log(e.data);
+    //   }
+    // }
     </script>
 </body>
 </html>

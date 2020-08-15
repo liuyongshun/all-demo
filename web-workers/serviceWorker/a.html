@@ -1,0 +1,27 @@
+<html>
+<head>
+</head>
+<body>
+    <div>A 页面</div>
+    <button onclick="toB()">B 页面</button>
+    <script>
+      // 通过hash值实现页面通信  ======================
+      // window.addEventListener('hashchange', function () {
+      //   alert(window.location.hash);
+      // }, false);
+
+      // // 通过localStore传值
+      // window.addEventListener('storage', function (e) {
+      //   alert(e.newValue);
+      // });
+
+      window.name = 'a';
+
+      function toB() {
+        // 打开新页面并设置页面名
+        window.open('b.html', 'b');
+      }
+    </script>
+</body>
+</html>
+

@@ -1,37 +1,24 @@
-const CHECK_CRASH_INTERVAL = 10 * 1000; // 每 10s 检查一次
-const CRASH_THRESHOLD = 15 * 1000; // 15s 超过15s没有心跳则认为已经 crash
-const pages = {}
+const checkTime = 6 * 1000; // 每 6s 检查一次
+const crashTime = 15 * 1000; // 15s 超过15s没有心跳则认为已经 crash
 let timer
+let time
 
-function checkCrash() {
-  const now = Date.now()
-  for (var id in pages) {
-    let page = pages[id]
-    if ((now - page.t) > CRASH_THRESHOLD) {
-      // 上报 crash
-      console.log("页面发生崩溃")
-      delete pages[id]
-    }
-  }
-  if (Object.keys(pages).length == 0) {
-    clearInterval(timer)
-    timer = null
-  }
-}
-
-this.addEventListener('message', (e) => {
-  console.log("service worker 接收", e.data.type)
+this.onmessage = (e) => {
   const data = e.data;
-  if (data.type === 'running') { // 正常心跳
-    pages[data.id] = {
-      t: Date.now()
-    }
+  // 正常心跳，检测崩溃
+  if (data.type === 'running') {
+    time = Date.now();
     if (!timer) {
       timer = setInterval(function () {
-        checkCrash()
-      }, CHECK_CRASH_INTERVAL)
+        const now = Date.now();
+        if ((now - time) > crashTime) {
+          console.log('页面崩溃啦');
+          clearInterval(timer);
+          timer = null;
+        } else {
+          console.log('页面还很正常');
+        }
+      }, checkTime)
     }
-  } else if (data.type === 'clear') {
-    delete pages[data.id]
   }
-})
+}

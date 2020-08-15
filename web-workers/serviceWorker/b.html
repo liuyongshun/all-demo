@@ -1,0 +1,77 @@
+<html>
+<head>
+</head>
+<body>
+    <div>b页面</div>
+    <button onclick='crash()'>点击页面崩溃</button>
+    <script>
+
+    function crash() {
+      while (true) {}
+    }
+
+    // 通过hash实现页面通信, 关闭页面前的事件监听 ===================
+    // window.onbeforeunload = function () {
+    //   // url 传值
+    //   window.open('a.html#close', 'a');
+    //   // localStore 传值
+    //   localStorage.setItem('someParam',JSON.stringify({a: 'hello', b: 'world'}));
+    //   // chrome 和 firfox 不支持文本修改
+    //   return '确定离开此页吗？';
+    // }
+
+
+    // 页面崩溃时通信方式 ===================
+    // var someDataNeedTransmit = '一些需要传递的数据'
+    // window.onload = function () {
+    //   // 页面每次挂在记录运行状态
+    //   sessionStorage.setItem('running', 'normal');
+    //   // 设置心跳, 记录崩溃前的时间
+    //   setInterval(function () {
+    //     sessionStorage.setItem('timeBeforeCrash', new Date().toString());
+    //     // 崩溃前的一些数据
+    //     sessionStorage.setItem('dataBeforeCrash', someDataNeedTransmit);
+    //   }, 1000);
+    // }
+
+    // window.onbeforeunload = function () {
+    //   // 页面每次正常关闭，调整状态
+    //   sessionStorage.setItem('running', 'exit');
+    //   return '确定离开此页吗？';
+    // }
+
+    // // 在此打开b页面时判断b上次是否正常关闭，如果不正常，则通知给a页面
+    // if(sessionStorage.getItem('running') && sessionStorage.getItem('running') !== 'exit') {
+    //   //
+    // }
+
+
+    // service worker 实现崩溃监控 ===================
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js', {
+          scope: './'
+        }).then(function (registration) {
+          if (navigator.serviceWorker.controller !== null) {
+            // 每五秒发一次心跳
+            let time = 5 * 1000;
+            let heartbeat = function () {
+              console.log('心跳频率');
+              navigator.serviceWorker.controller.postMessage({
+                type: 'running',
+                data: {}
+              });
+            }
+            window.addEventListener('beforeunload', function () {
+              navigator.serviceWorker.controller.postMessage({
+                type: 'clear'
+              });
+            });
+            setInterval(heartbeat, time);
+          }
+        })
+        .catch(function (error) {
+        });
+      }
+    </script>
+</body>
+</html>
