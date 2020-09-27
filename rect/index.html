@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+      /* #main {
+        display: -webkit-box !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      } */
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<span id="main" style="line-height: 20px;">返回值是ClientRect对象集合，该对象是与该元素相关的CSS边框。每个ClientRect对象包含一组描述该边框的只读属性——left、top、right和bottom，单位为像素，这些属性值是相对于视口的top-left的。即使当表格的标题在表格的边框外面，该标题仍会被计算在内。</span>
+		</div>
+	</body>
+	<script type="text/javascript">
+    console.log(document.getElementById("main").getClientRects());
+    console.log(document.getElementById("main").getBoundingClientRect());
+	</script>
+
+</html>

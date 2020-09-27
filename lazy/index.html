@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+    <title></title>
+    <style>
+      .item-lazy-img-box {
+        margin: 20px auto;
+        width: 700px;
+        border: 1px solid #ddd;
+        /* 用来站位，如果没有一个初始站位，会加载全部，因为高度没有撑开，素有 */
+        padding-bottom: 45.4%;
+      }
+      .item-lazy-img-box img {
+        display: block;
+        width: 100%;
+      }
+    </style>
+	</head>
+
+	<body>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1212634408,3098005759&fm=26&gp=0.jpg" alt=""></div>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=137056439,1749348804&fm=26&gp=0.jpg" alt=""></div>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1383631049,497967470&fm=26&gp=0.jpg" alt=""></div>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3092093306,2016584804&fm=26&gp=0.jpg" alt=""></div>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1565497032,1186325569&fm=26&gp=0.jpg" alt=""></div>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3821866890,593617715&fm=26&gp=0.jpg" alt=""></div>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2852448413,2190881300&fm=15&gp=0.jpg" alt=""></div>
+    <div class="item-lazy-img-box"><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=106869756,2517427910&fm=26&gp=0.jpg" src-placeholder="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2555113363,943959302&fm=26&gp=0.jpg" alt=""></div>
+
+    <script>
+      let count = 0;
+      (function lazyLoad(){
+        const imageToLazy = document.querySelectorAll('img[src-placeholder]');
+        const loadImage = function (image) {
+          image.setAttribute('src', image.getAttribute('src-placeholder'));
+          image.addEventListener('load', function() {
+            image.removeAttribute("src-placeholder");
+          })
+        }
+
+        const intersectionObserver = new IntersectionObserver(function(items, observer) {
+          count++
+          console.log(count)
+          items.forEach(function(item) {
+            if(item.isIntersecting) {
+              loadImage(item.target);
+              observer.unobserve(item.target);
+            }
+          });
+        });
+
+        imageToLazy.forEach(function(image){
+          intersectionObserver.observe(image);
+        })
+    })()
+    </script>
+	</body>
+</html>

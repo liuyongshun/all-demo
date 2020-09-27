@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+      .one {
+        margin-top: 20px;
+        margin-left: 20px;
+        width: 200px;
+        height: 200px;
+        /* 上边线 */
+        /* 右边线 */
+        /* 下边线 */
+        /* 左边线 */
+        box-shadow: 0px  -1px 0px 0px #000,
+            1px  0  0px 0px #000,
+            0  1px  0px 0px #000,
+            -1px 0  0px 0px #000;
+      }
+      /* 伪类实现 */
+      .setOnePx{
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin:  20px 10px;
+      }
+      .setOnePx:after{
+        position: absolute;
+        content: '';
+        background-color: #000;
+        display: block;
+        width: 100%;
+        height: 1px; /*no*/
+        transform: scale(1, 0.5);
+        top: 0;
+        left: 0;
+      }
+		</style>
+	</head>
+
+	<body>
+    <div class="one">1px边框</div>
+
+    <div class="setOnePx">伪类实现</div>
+	</body>
+</html>
