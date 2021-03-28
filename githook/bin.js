@@ -9,7 +9,6 @@ function readPkg() {
 const pkg = readPkg();
 const [, , cmd, ...args] = process.argv;
 
-
 switch (cmd) {
     case 'init': {
         const isYarn2 = String(process.env.npm_config_user_agent).startsWith('yarn/2');
