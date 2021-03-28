@@ -1,0 +1,15 @@
+{
+  "name": "githook",
+  "version": "1.0.0",
+  "description": "### git 钩子",
+  "main": "bin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^5.2.0"
+  }
+}
