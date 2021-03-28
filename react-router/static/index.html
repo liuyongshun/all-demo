@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+    <title></title>
+	</head>
+	<body>
+    <!-- <div id="app">
+      <ul>
+        <li><a data-href="/" href="javascript:;">home</a></li>
+        <li><a data-href="/about" href="javascript:;">about</a></li>
+        <li><a data-href="/topics" href="javascript:;">topics</a></li>
+      </ul>
+      <div id="content"></div>
+    </div> -->
+    <div class="parent">
+      <div class="child"></div>
+      <div class="child1"></div>
+      <div class="child2"></div>
+    </div>
+    <style>
+      .parent {
+        display: flex;
+        justify-content: space-between;
+        height: 200px;
+      }
+      .child,.child2 {
+        width: 200px;
+      }
+      .child1 {
+        flex: 1;
+      }
+    </style>
+    <script>
+      // let router = {
+      //   routes: {},
+      //   currentUrl: '',
+
+      //   // 对应的路由绑定一个回调函数，处理要渲染的组件
+      //   route: function (path, callback) {
+      //     this.routes[path] = callback || function() {}
+      //   },
+
+      //   // 执行路由绑定的函数，进行渲染
+      //   update: function (url) {
+      //     this.currentUrl = url
+      //     this.routes[this.currentUrl] && this.routes[this.currentUrl](url)
+      //   },
+
+      //   // 绑定事件，点击时更新路由和视图
+      //   bindLink: function () {
+      //     let app = document.getElementById('app')
+      //     let that = this
+      //     app.addEventListener('click', function (e) {
+      //       e.preventDefault()
+      //       let target = e.target
+      //       if (target.nodeName === 'A') {
+      //         let url = target.getAttribute('data-href')
+      //         history.pushState({}, null, url)
+      //         that.update(url)
+      //       }
+      //     }, false)
+      //   },
+
+      //   init: function () {
+      //     this.bindLink()
+      //     let that = this
+      //     // 可以为popstate事件指定回调函数。这个回调函数的参数是一个event事件对象
+      //     // 它的state属性指向pushState和replaceState方法为当前URL所提供的状态对象。
+      //     window.addEventListener('popstate', e => {
+      //       // 可以访问到state里面内容
+      //       console.log(e.state)
+      //       that.update(window.location.pathname)
+      //     })
+      //     window.addEventListener('load', () => this.update('/'), false)
+      //   }
+      // }
+      // router.init()
+
+      // let getItem = document.getElementById('content')
+      // const routers = [
+      //   {
+      //     path: '/',
+      //     components: '<div>组件A</div>'
+      //   },
+      //   {
+      //     path: '/about',
+      //     components: '<div>组件B</div>'
+      //   },
+      //   {
+      //     path: '/topics',
+      //     components: '<div>组件C</div>'
+      //   }
+      // ]
+      // routers.map(n => {
+      //   router.route(n.path, function() {
+      //     getItem.innerHTML = n.components
+      //   })
+      // })
+    </script>
+	</body>
+</html>
